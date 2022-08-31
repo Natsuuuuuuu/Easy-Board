@@ -15,11 +15,6 @@ function resizeCanvas() {
 let lastPos = [];
 let dragging = false;
 
-//ctx.strokeStyle = "white";
-//ctx.lineWidth = 30;
-//ctx.lineCap = "round";
-//ctx.lineJoin = "round";
-
 function down(pos) {
     lastPos = pos;
     dragging = true;
@@ -133,10 +128,6 @@ function presetHighlighterButtonClick() {
 
     const penPreviewElement = activePenElement.children[0];
 
-    console.log(penPreviewElement);
-
-    console.log(penPreviewElement.style.background, ConvertRGBtoHex(penPreviewElement.style.background));
-
     document.getElementById("highlighterSize").value = penPreviewElement.style.width.replace("px", "");
     document.getElementById("highlighterColor").value = ConvertRGBtoHex(penPreviewElement.style.background);
 
@@ -150,7 +141,7 @@ function clearAll() {
     hCtx.clearRect(0, 0, hCanvas.width, hCanvas.height);
 }
 
-////// ビデオ //////
+////// Video //////
 
 const video = document.getElementById("cameraVideo");
 
@@ -164,7 +155,6 @@ let videoStream;
 let srcObject;
 
 function startStream(constraints) {
-    console.log(constraints);
     navigator.mediaDevices.getUserMedia(constraints)
     .then(function(stream) {
         videoStream = stream.getVideoTracks()[0];
@@ -255,7 +245,6 @@ function toggleShowControles() {
     buttonIcon.classList.toggle("fa-angle-right");
 
     if (controls.style.display == "flex") {
-        console.log("a");
         gridContainer.style.gridTemplateColumns = "0 180px 1fr";
         controlsHideButton.style.marginRight = "160px";
         controls.style.display = "none";
@@ -340,7 +329,7 @@ function openNewWindow() {
 
     subWindow.document.body.innerHTML = `<img id="drawCanvasSub"></img>
     <img id="highlighterCanvasSub"></img>
-    <video id="cameraVideoSub" muted></video>
+    <video id="cameraVideoSub" muted autoplay></video>
     `;
 
     subWindow.document.getElementById("cameraVideoSub").srcObject = video.srcObject;
@@ -371,7 +360,6 @@ function init() {
     
     canvas.addEventListener('mousedown', function(e) {
         down(pos(e));
-        console.log(activeTool);
     });
 
     canvas.addEventListener('mousemove', function(e) {
@@ -406,11 +394,9 @@ function init() {
         element.addEventListener("click", toolsButtonClick);
     });
     
-    // tools-settingの蛍光ペン設定と消しゴム設定を非表示
     document.querySelector(".tools-setting .highlighter").style.display = "none";
     document.querySelector(".tools-setting .eraser").style.display = "none";
 
-    // tools-settingのペンのユーザープリセットのプレビュー表示
     const presetPenButtons = document.querySelectorAll(".tools-setting .pen .user-presets button");
     presetPenButtons.forEach(function(element) {
         element.addEventListener("click", presetPenButtonClick);
@@ -436,7 +422,6 @@ function init() {
         ctx.beginPath();
     });
 
-    // tools-settingの蛍光ペンのユーザープリセットのプレビュー表示
     const presetHighlighterButtons = document.querySelectorAll(".tools-setting .highlighter .user-presets button");
     presetHighlighterButtons.forEach(function(element) {
         element.addEventListener("click", presetHighlighterButtonClick);
@@ -462,8 +447,6 @@ function init() {
         hCtx.beginPath();
     });
 
-    // 消しゴムのイベントリスナー
-
     const presetEraserButtons = document.querySelectorAll(".tools-setting .eraser .user-presets button");
     presetEraserButtons.forEach(function(element) {
         element.addEventListener("click", function() {
@@ -476,13 +459,11 @@ function init() {
         });
     });
 
-    // ペンをペンツールの一番目のペン設定で初期化
     ctx.strokeStyle = activePenElement.children[0].style.background;
     ctx.lineWidth = activePenElement.children[0].style.width.replace("px", "");
     ctx.lineCap = "round";
     ctx.lineJoin = "round";
 
-    // 傾向ペンを蛍光ペンツールの一番目のペン設定で初期化
     const activeHighlighterElement = document.querySelector(".tools-setting .highlighter .user-presets button");
     hCtx.strokeStyle = activeHighlighterElement.children[0].style.background;
     hCtx.lineWidth = activeHighlighterElement.children[0].style.width.replace("px", "");
@@ -493,7 +474,6 @@ function init() {
 
     getCameras().then(function(result) {
         cameraDevices = result;
-        console.log(cameraDevices);
     
         startStream({ 
             video: {
@@ -505,8 +485,6 @@ function init() {
     document.querySelector(".controls").style.display = "flex";
     document.querySelector(".tools").style.display = "flex";
 
-    ////// UI //////
-
 }
 
-init();
+window.onload = init;
