@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>Camera Board</title>
+        <link rel="stylesheet" href="style/style.css">
+        <link href="https://use.fontawesome.com/releases/v6.1.1/css/all.css" rel="stylesheet">
+    </head>
+    <body>
+        <main>
+            <div class="grid-container">
+                <div class="controls">
+                    <div class="buttons">
+                        <button onclick="changeCamera()">
+                            <i class="fa-solid fa-video"></i>
+                            <span>カメラ切り替え</span>
+                        </button>
+                        <button id="lightSwitch" onclick="toggleLight()">
+                            <i class="fa-solid fa-lightbulb"></i>
+                            <span>ライト ON</span>
+                        </button>
+                        <button onclick="toggleFullscreen()">
+                            <i class="fa-solid fa-expand"></i>
+                            <span>全画面表示</span>
+                        </button>
+                        <button onclick="openNewWindow()">
+                            <i class="fa-solid fa-up-right-from-square"></i>
+                            <span>別ウィンドウに表示</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="controls-hide-button">
+                    <button onclick="toggleShowControles()"><i class="fa-solid fa-angle-left"></i></button>
+                </div>
+                <div class="empty-area">
+                    <div class="tools-setting">
+                        <div class="pen">
+                            <div class="user-presets">
+                                <button class="button-active">
+                                    <div class="pen-preview"></div>
+                                </button>
+                                <button>
+                                    <div class="pen-preview"></div>
+                                </button>
+                                <button>
+                                    <div class="pen-preview"></div>
+                                </button>
+                            </div>
+                            <div class="size-setting">
+                                <label for="penSize">太さ</label>
+                                <input id="penSize" type="number" min="1" value="5">
+                            </div>
+                            <input id="penColor" type="color">
+                        </div>
+                        <div class="highlighter">
+                            <div class="user-presets">
+                                <button class="button-active">
+                                    <div class="pen-preview"></div>
+                                </button>
+                                <button>
+                                    <div class="pen-preview"></div>
+                                </button>
+                                <button>
+                                    <div class="pen-preview"></div>
+                                </button>
+                            </div>
+                            <div class="size-setting">
+                                <label for="highlighterSize">太さ</label>
+                                <input id="highlighterSize" type="number" min="1" value="15">
+                            </div>
+                            <input id="highlighterColor" type="color" value="#ff0000">
+                        </div>
+                        <div class="eraser">
+                            <div class="user-presets">
+                                <button class="button-active" value="30">
+                                    <div class="pen-preview bold"></div>
+                                </button>
+                                <button value="15">
+                                    <div class="pen-preview medium"></div>
+                                </button>
+                                <button value="5">
+                                    <div class="pen-preview thin"></div>
+                                </button>
+                            </div>
+                            <button class="clear-all" onclick="clearAll()">
+                                <i class="fa-solid fa-chalkboard"></i>すべて消去
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="pause-button" onclick="pause()">
+                    <button><i class="fa-solid fa-hourglass-end"></i></button>
+                </div>
+                <div class="tools">
+                    <div class="buttons">
+                        <button value="pen" class="button-active">
+                            <i class="fa-solid fa-pen"></i>
+                            <span>ペン</span>
+                        </button>
+                        <button value="highlighter">
+                            <i class="fa-solid fa-highlighter"></i>
+                            <span>蛍光ペン</span>
+                        </button>
+                        <button value="eraser">
+                            <i class="fa-solid fa-eraser"></i>
+                            <span>消しゴム</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="tools-hide-button">
+                    <button onclick="toggleShowTools()"><i class="fa-solid fa-angle-down"></i></button>
+                </div>
+            </div>
+
+            <div class="camera">
+                <div class="container">
+                    <canvas id="highlighterCanvas"></canvas>
+                    <canvas id="drawCanvas"></canvas>
+                    <video id="cameraVideo"></video>
+                </div>
+            </div>
+
+        </main>
+        <script src="main.js"></script>
+    </body>
+</html>
